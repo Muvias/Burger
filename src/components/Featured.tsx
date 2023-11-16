@@ -4,7 +4,7 @@ import { featuredProducts } from "@/data"
 
 export function Featured() {
     return (
-        <div className="w-full overflow-x-scroll">
+        <section className="w-full overflow-x-scroll">
             <div className="flex w-max">
                 {featuredProducts.map((product) => (
                     <div
@@ -33,6 +33,6 @@ export function Featured() {
                     </div>
                 ))}
             </div>
-        </div>
+        </section>
     )
 }

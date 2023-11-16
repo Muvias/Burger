@@ -199,10 +199,7 @@ export const featuredProducts: Products = [
             },
         ],
     },
-];
-
-
-
+]
 
 export const pizzas: Products = [
     {
@@ -331,7 +328,7 @@ export const pizzas: Products = [
             },
         ],
     },
-];
+]
 
 export const singleProduct: Product = {
     id: 1,
@@ -353,8 +350,7 @@ export const singleProduct: Product = {
             additionalPrice: 6,
         },
     ],
-};
-
+}
 
 type Menu = {
     id: number;
@@ -363,7 +359,7 @@ type Menu = {
     desc?: string;
     img?: string;
     color: string;
-}[];
+}[]
 
 export const menu: Menu = [
     {
@@ -390,4 +386,4 @@ export const menu: Menu = [
         img: "/temporary/m3.png",
         color: "white",
     },
-];
+]

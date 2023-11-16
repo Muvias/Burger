@@ -6,11 +6,11 @@ interface NavbarProps { }
 
 export function Navbar({ }: NavbarProps) {
     return (
-        <header className="flex justify-between lg:justify-around items-center uppercase p-4 border-b-2 border-b-red-400 text-red-600">
+        <header className="flex justify-between lg:justify-around items-center uppercase p-4 border-b-2 border-b-red-400 text-red-600 transition-colors">
             <nav className="hidden lg:flex gap-8 text-lg">
-                <Link href='/'>Início</Link>
-                <Link href='/menu'>Menu</Link>
-                <Link href='/'>Contato</Link>
+                <Link href='/' className="hover:text-red-500">Início</Link>
+                <Link href='/menu' className="hover:text-red-500">Menu</Link>
+                <Link href='/' className="hover:text-red-500">Contato</Link>
             </nav>
 
             <Link href='/'>
@@ -24,7 +24,7 @@ export function Navbar({ }: NavbarProps) {
                     <PhoneIcon className="text-white fill-white h-5 w-5" strokeWidth={0.5} />
                     11 99123-4567
                 </span>
-                <Link href='/orders'>Pedidos</Link>
+                <Link href='/orders' className="hover:text-red-500">Pedidos</Link>
 
                 <div className="flex items-center gap-2">
                     <ShoppingBasketIcon className="h-5 w-5 text-orange-500" />

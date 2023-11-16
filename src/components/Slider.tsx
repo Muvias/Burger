@@ -25,11 +25,11 @@ const data = [
 export function Slider() {
     const [currentSlide, setCurrentSlide] = useState<number>(2)
 
-    // useEffect(() => {
-    //     const interval = setInterval(() => setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1)), 5000)
+    useEffect(() => {
+        const interval = setInterval(() => setCurrentSlide((prev) => (prev === data.length - 1 ? 0 : prev + 1)), 5000)
 
-    //     return () => clearInterval(interval)
-    // }, [])
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div className="flex flex-col lg:flex-row h-[calc(100vh-6.6rem)] font-bold bg-red-50/50">

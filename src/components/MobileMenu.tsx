@@ -13,14 +13,16 @@ export function MobileMenu({ }: MobileMenuProps) {
 
             <SheetContent className="flex flex-col justify-between bg-primary/95 uppercase text-white">
                 <SheetHeader>
-                    <SheetTitle className="my-4 rounded-sm text-3xl text-center text-primary bg-white">Massimo</SheetTitle>
+                    <SheetTitle className="my-4 rounded-sm text-3xl text-center text-primary bg-white">
+                        Massimo
+                    </SheetTitle>
                 </SheetHeader>
 
                 <nav className="flex flex-col items-center justify-center gap-8 text-2xl">
                     <SheetClose asChild>
                         <Link href='/'>Início</Link>
                     </SheetClose>
-                    
+
                     <SheetClose asChild>
                         <Link href='/menu'>Menu</Link>
                     </SheetClose>
