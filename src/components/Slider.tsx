@@ -46,6 +46,8 @@ export function Slider() {
                     src={data[currentSlide].image}
                     alt=""
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    priority
                     className="object-cover"
                 />
             </div>

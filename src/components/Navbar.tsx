@@ -13,10 +13,8 @@ export function Navbar({ }: NavbarProps) {
                 <Link href='/' className="hover:text-red-500">Contato</Link>
             </nav>
 
-            <Link href='/'>
-                <h1 className="text-3xl font-bold">
-                    Massimo
-                </h1>
+            <Link href='/' className="text-3xl font-bold">
+                Massimo
             </Link>
 
             <div className="hidden lg:flex items-center gap-4">

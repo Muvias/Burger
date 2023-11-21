@@ -20,6 +20,7 @@ export function Offer() {
                     src='/offerProduct.png'
                     alt=""
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-contain"
                 />
             </div>
