@@ -1,10 +1,27 @@
+'use client'
+
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface pageProps { }
 
 export default function Page({ }: pageProps) {
+    const { data, status } = useSession()
+
+    const router = useRouter()
+
+    if (status === 'loading') {
+        return <Loader2 className="mx-auto animate-spin" />
+    }
+
+    if (status === 'authenticated') {
+        router.push('/')
+    }
+
     return (
         <div className="flex items-center justify-center h-[80vh] md:h-[calc(100vh-9rem)] p-4">
             <div className="flex flex-col md:flex-row h-full md:h-[70%] md:w-full lg:w-[60%] 2xl:w-1/2 shadow-2xl rounded-md">
@@ -21,7 +38,7 @@ export default function Page({ }: pageProps) {
                     <h1 className="font-bold text-xl lg:text-3xl 2xl:text-4xl">Bem Vindo</h1>
                     <p>Entre em sua conta ou crie uma nova usando a conta Google</p>
 
-                    <Button variant='secondary'>
+                    <Button variant='secondary' onClick={() => signIn('google')}>
                         <svg
                             className='mr-2 h-4 w-4'
                             aria-hidden='true'
