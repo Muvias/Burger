@@ -18,8 +18,8 @@ model Category {
   image       String
   slug        String @unique
 
-  createAt DateTime  @default(now())
-  products Product[]
+  createdAt DateTime  @default(now())
+  products  Product[]
 }
 
 model Product {
@@ -35,7 +35,7 @@ model Product {
   category     Category @relation(fields: [categorySlug], references: [slug])
   categorySlug String
 
-  createAt DateTime @default(now())
+  createdAt DateTime @default(now())
 }
 
 model Order {
@@ -46,7 +46,10 @@ model Order {
 
   intent_id String? @unique
 
-  createAt DateTime @default(now())
+  user      User   @relation(fields: [userEmail], references: [email], onDelete: Cascade)
+  userEmail String
+
+  createdAt DateTime @default(now())
 }
 
 model Account {
@@ -87,6 +90,7 @@ model User {
 
   accounts Account[]
   sessions Session[]
+  Order    Order[]
 }
 
 model VerificationToken {

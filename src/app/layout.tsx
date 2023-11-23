@@ -5,6 +5,7 @@ import { Notification } from '@/components/Notification'
 import { Navbar } from '@/components/Navbar'
 import { Footer } from '@/components/Footer'
 import AuthProvider from '@/components/AuthProvider'
+import { Toaster } from 'sonner'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,6 +23,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={inter.className}>
         <AuthProvider>
+          <Toaster richColors closeButton />
           <Notification />
           <Navbar />
           {children}
