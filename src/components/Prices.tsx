@@ -3,28 +3,50 @@
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
+import { Product } from "@/types/types";
+import { useCartStore } from "@/utils/store";
+import { toast } from "sonner";
 
 interface PricesProps {
-    id: number
-    price: number
-    options?: { title: string; additionalPrice: number }[]
+    product: Product
 }
 
-export function Prices({ id, price, options }: PricesProps) {
-    const [total, setTotal] = useState(price)
+export function Prices({ product }: PricesProps) {
+    const [total, setTotal] = useState(product.price)
     const [quantity, setQuantity] = useState(1)
     const [selected, setSelected] = useState(0)
 
+    const { addToCart } = useCartStore()
+
     useEffect(() => {
-        setTotal(quantity * (options ? price + options[selected].additionalPrice : price))
-    }, [quantity, selected, options, price])
+        useCartStore.persist.rehydrate()
+    }, [])
+
+    useEffect(() => {
+        if (product.options?.length) {
+            setTotal(quantity * product.price + product.options[selected].additionalPrice)
+        }
+    }, [quantity, selected, product])
+
+    function handleCart() {
+        addToCart({
+            id: product.id,
+            title: product.title,
+            image: product.image,
+            price: total,
+            ...(product.options?.length && { optionTitle: product.options[selected].title }),
+            quantity: quantity,
+        })
+
+        toast.success('Adicionado ao carrinho')
+    }
 
     return (
         <div className="space-y-8">
-            <span className="font-bold text-3xl">R$ {total.toFixed(2).replace('.', ',')}</span>
+            <span className="font-bold text-3xl">R$ {total}</span>
 
             <div className="flex gap-4 md:w-1/2">
-                {options?.map((option, index) => (
+                {product.options?.map((option, index) => (
                     <Button
                         key={option.title}
                         variant={'outline'}
@@ -63,7 +85,12 @@ export function Prices({ id, price, options }: PricesProps) {
                     </div>
                 </div>
 
-                <Button className="py-5 h-full rounded-none uppercase text-xs sm:text-sm whitespace-normal sm:whitespace-nowrap">Adc ao Carrinho</Button>
+                <Button
+                    onClick={() => handleCart()}
+                    className="py-5 h-full rounded-none uppercase text-xs sm:text-sm whitespace-normal sm:whitespace-nowrap"
+                >
+                    Adc ao Carrinho
+                </Button>
             </div>
         </div>
     )

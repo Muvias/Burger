@@ -1,7 +1,6 @@
 'use client'
 
 import { buttonVariants } from "@/components/ui/button";
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { Product } from "@/types/types";
 import { motion } from "framer-motion";
 import Image from "next/image";
@@ -23,15 +22,17 @@ interface CardProductProps {
 
 export function CardProduct({ product }: CardProductProps) {
     return (
-        <Card
-            className="flex flex-col md:w-[45%] lg:w-[30%] xl:w-1/4 h-[30vh] hover:bg-red-50/50 border-primary rounded-sm"
+        <motion.div
             key={product.id}
+            className="flex flex-col md:w-[45%] lg:w-[30%] xl:w-1/4 h-[30vh] hover:bg-red-50/50 border border-primary rounded-sm"
+            whileHover="hover"
+            initial='default'
         >
             <Link
                 href={`/product/${product.id}`}
                 className="flex flex-col h-full gap-4  p-4"
             >
-                <CardHeader className="relative flex-1">
+                <div className="relative flex-1">
                     {product.image && (
                         <Image
                             src={product.image}
@@ -41,16 +42,14 @@ export function CardProduct({ product }: CardProductProps) {
                             className="object-contain"
                         />
                     )}
-                </CardHeader>
+                </div>
 
-                <motion.div
+                <div
                     className="flex-1 flex flex-col items-center justify-center w-full p-0 gap-4 text-center text-primary/90"
-                    whileHover="hover"
-                    initial='default'
                 >
-                    <CardTitle className="font-semibold uppercase break-words">
+                    <h2 className="font-semibold uppercase break-words">
                         {product.title}
-                    </CardTitle>
+                    </h2>
 
                     <motion.span
                         className="font-semibold h-10 text-xl"
@@ -65,8 +64,8 @@ export function CardProduct({ product }: CardProductProps) {
                     >
                         Adc ao Carrinho
                     </motion.button>
-                </motion.div>
+                </div>
             </Link>
-        </Card>
+        </motion.div>
     )
 }

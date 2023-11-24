@@ -29,7 +29,7 @@ export type Order = {
 export type CartItem = {
     id: string
     title: string
-    img?: string
+    image?: string
     price: number
     optionTitle?: string
     quantity: number

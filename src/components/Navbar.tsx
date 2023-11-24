@@ -1,12 +1,10 @@
-import { PhoneIcon, ShoppingBasketIcon } from "lucide-react";
+import { PhoneIcon } from "lucide-react";
 import Link from "next/link";
 import { MobileMenu } from "./MobileMenu";
 import { UserLinks } from "./UserLinks";
+import { Cart } from "./Cart";
 
-interface NavbarProps { }
-
-export function Navbar({ }: NavbarProps) {
-
+export function Navbar() {
     return (
         <header className="flex justify-between lg:justify-around items-center uppercase p-4 border-b-2 border-b-red-400 text-red-600 transition-colors">
             <nav className="hidden lg:flex gap-8 text-lg">
@@ -27,10 +25,7 @@ export function Navbar({ }: NavbarProps) {
 
                 <UserLinks />
 
-                <Link href='/cart' className="flex items-center gap-2">
-                    <ShoppingBasketIcon className="h-5 w-5 text-orange-500" />
-                    Carrinho(3)
-                </Link>
+                <Cart />
             </div>
 
             <div className="lg:hidden">
