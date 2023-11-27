@@ -3,17 +3,46 @@
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/utils/store";
 import { GhostIcon, X } from "lucide-react";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 interface pageProps { }
 
 export default function Page({ }: pageProps) {
     const { products, totalItems, totalPrice, removeFromCart } = useCartStore()
+    const { data: session } = useSession()
+    const router = useRouter()
 
     useEffect(() => {
         useCartStore.persist.rehydrate()
     }, [])
+
+    async function handleCheckout() {
+        if (!session) {
+            return router.push('/login')
+        }
+
+        try {
+            const res = await fetch('http://localhost:3000/api/orders', {
+                method: 'POST',
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    price: totalPrice,
+                    products,
+                    status: 'Not Paid!',
+                    userEmail: session.user.email
+                })
+            })
+
+            const data = await res.json()
+
+            router.push(`/pay/${data.id}`)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="flex flex-col lg:flex-row h-[80vh] md:h-[calc(100vh-9rem)] text-primary font-medium">
@@ -63,7 +92,12 @@ export default function Page({ }: pageProps) {
                             <span>Total</span>
                             <span>R${totalPrice}</span>
                         </div>
-                        <Button className="uppercase self-end">Checkout</Button>
+                        <Button
+                            className="uppercase self-end"
+                            onClick={handleCheckout}
+                        >
+                            Checkout
+                        </Button>
                     </div>
                 </>
             )}
