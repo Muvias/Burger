@@ -24,7 +24,7 @@ export function Prices({ product }: PricesProps) {
 
     useEffect(() => {
         if (product.options?.length) {
-            setTotal(quantity * product.price + product.options[selected].additionalPrice)
+            setTotal(quantity * (+product.price + +product.options[selected].additionalPrice))
         }
     }, [quantity, selected, product])
 

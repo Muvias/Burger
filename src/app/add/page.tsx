@@ -32,7 +32,7 @@ export default function Page() {
         additionalPrice: 0
     })
     const [options, setOptions] = useState<Option[]>([])
-    const [file, setFile] = useState<FileList | null>()
+    const [file, setFile] = useState<File>()
 
     const router = useRouter()
 
@@ -57,13 +57,37 @@ export default function Page() {
         })
     }
 
+    function handleChangeImg(e: React.ChangeEvent<HTMLInputElement>) {
+        const target = e.target as HTMLInputElement
+        const item = (target.files as FileList)[0]
+
+        setFile(item)
+    }
+
+    async function upload() {
+        const data = new FormData()
+        data.append('file', file!)
+        data.append('upload_preset', 'restaurant')
+
+        const res = await fetch("https://api.cloudinary.com/v1_1/drt8dpljo/image/upload", {
+            method: 'POST',
+            body: data
+        })
+
+        const resData = await res.json()
+
+        return resData.url
+    }
+
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
 
         try {
+            const url = await upload()
             const res = await fetch('http://localhost:3000/api/products', {
                 method: "POST",
                 body: JSON.stringify({
+                    image: url,
                     ...inputs,
                     options
                 })
@@ -83,7 +107,7 @@ export default function Page() {
                 <h1 className="text-2xl uppercase font-bold">Adicionar Novo Produto</h1>
                 <div className="flex flex-col gap-2 w-full">
                     <label>Imagem</label>
-                    <input type="file" onChange={(e) => setFile(e.target.files)} className="p-2 rounded-sm ring-1 ring-red-200" />
+                    <input type="file" onChange={handleChangeImg} className="p-2 rounded-sm ring-1 ring-red-200" />
                 </div>
                 <div className="flex flex-col gap-2 w-full">
                     <label>Título</label>
